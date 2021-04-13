@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/dictionariesFragment">
+
+    <fragment
+        android:id="@+id/dictionariesFragment"
+        android:name="simple.applicat.mywords.mainfragments.DictionariesFragment"
+        android:label="fragment_dictionaries"
+        tools:layout="@layout/fragment_dictionaries" >
+        <action
+            android:id="@+id/action_dictionariesFragment_to_wordsFragment"
+            app:destination="@id/wordsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wordsFragment"
+        android:name="simple.applicat.mywords.mainfragments.WordsFragment"
+        android:label="fragment_words"
+        tools:layout="@layout/fragment_words" />
+</navigation>
