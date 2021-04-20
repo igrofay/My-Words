@@ -55,8 +55,7 @@
         android:clickable="true"
         android:src="@drawable/ic_add"
         app:backgroundTint="#FDD835"
-        app:layout_anchor="@id/recycle_view_dictionaries"
-        app:layout_anchorGravity="bottom|end"
+        android:layout_gravity="bottom|end"
         app:layout_behavior=".behavior.FloatingActionButtonBehavior" />
 
 

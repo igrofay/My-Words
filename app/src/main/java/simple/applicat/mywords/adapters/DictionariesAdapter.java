@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import simple.applicat.mywords.R;
-import simple.applicat.mywords.objects.Dictionary;
+import simple.applicat.mywords.data.Dictionary;
 
 public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapter.ViewCell>{
     private ArrayList<Dictionary> dictionaries ;
@@ -37,7 +37,7 @@ public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapte
     public void onBindViewHolder(@NonNull ViewCell holder, int position) {
         Dictionary dictionary = dictionaries.get(position);
         holder.nameDictionary.setText(dictionary.getNameDictionary());
-        holder.itemView.setAnimation(AnimationUtils.loadAnimation( context , R.anim.anim_view_cell_dictionary));
+        holder.startAnimation();
     }
 
     @Override
@@ -47,10 +47,15 @@ public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapte
     class ViewCell extends RecyclerView.ViewHolder{
         final TextView nameDictionary ;
         final ImageView imageDictionary;
+        final Animation animationItem ;
         public ViewCell(@NonNull View itemView) {
             super(itemView);
             nameDictionary = itemView.findViewById(R.id.name_dictionary);
             imageDictionary = itemView.findViewById(R.id.image_dictionary);
+            animationItem = AnimationUtils.loadAnimation( context , R.anim.anim_view_cell_dictionary);
+        }
+        public void startAnimation(){
+            itemView.startAnimation(animationItem);
         }
     }
 }

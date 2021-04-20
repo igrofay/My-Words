@@ -1,33 +1,32 @@
 package simple.applicat.mywords.mainfragments;
 
-import android.annotation.SuppressLint;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.fragment.app.FragmentManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 import simple.applicat.mywords.R;
 import simple.applicat.mywords.adapters.DictionariesAdapter;
-import simple.applicat.mywords.objects.Dictionary;
+import simple.applicat.mywords.data.Dictionary;
 
 public class DictionariesFragment extends Fragment {
     FloatingActionButton addNewDictionary;
+    static ArrayList<Dictionary> dictionaries = new ArrayList<>();
+    RecyclerView RC_Dictionaries;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,24 +38,23 @@ public class DictionariesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<Dictionary> dictionaries = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            dictionaries.add(new Dictionary(String.valueOf(i)));
-        }
-        RecyclerView rv = view.findViewById(R.id.recycle_view_dictionaries);
-        rv.setAdapter(new DictionariesAdapter(dictionaries , getContext()));
-        rv.setLayoutManager(new StaggeredGridLayoutManager(
+        RC_Dictionaries = view.findViewById(R.id.recycle_view_dictionaries);
+        RC_Dictionaries.setAdapter(new DictionariesAdapter(dictionaries , getContext()));
+        RC_Dictionaries.setLayoutManager(new StaggeredGridLayoutManager(
                 getScreenOrientation()
                 ,StaggeredGridLayoutManager.VERTICAL));
         addNewDictionary.setOnClickListener(v -> {
-            AddNewDictionaryBottomSheetDialogFragment addNewDictionaryBottomSheetDialogFragment =
-                    new AddNewDictionaryBottomSheetDialogFragment();
-
-            addNewDictionaryBottomSheetDialogFragment.show(getChildFragmentManager() , "");
-
+           createDialogForAddNewDictionary(getChildFragmentManager());
         });
+
     }
 
+
+    private void createDialogForAddNewDictionary(FragmentManager fragmentManager){
+        AddNewDictionaryBottomSheetDialogFragment addNewDictionaryBSDF =
+                new AddNewDictionaryBottomSheetDialogFragment();
+        addNewDictionaryBSDF.show(fragmentManager , "");
+    }
     private int getScreenOrientation(){
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             return 1;
@@ -65,5 +63,4 @@ public class DictionariesFragment extends Fragment {
         else
             return 1;
     }
-
 }

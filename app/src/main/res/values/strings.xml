@@ -3,4 +3,5 @@
     <string name="create_new_dictionary">Создать новый словарь</string>
     <string name="dictionaries">Словари</string>
     <string name="name_dictionary">Имя словоря</string>
+    <string name="input_name_dictionary">Введите имя словоря</string>
 </resources>
