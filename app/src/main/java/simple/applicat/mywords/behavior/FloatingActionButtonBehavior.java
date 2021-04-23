@@ -28,7 +28,7 @@ public class FloatingActionButtonBehavior extends CoordinatorLayout.Behavior<Flo
 
     @Override
     public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull FloatingActionButton child, @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
-        return axes == ViewCompat.SCROLL_AXIS_VERTICAL ; //Наблюдение за осью
+        return axes == ViewCompat.SCROLL_AXIS_VERTICAL ;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class FloatingActionButtonBehavior extends CoordinatorLayout.Behavior<Flo
                                   @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
 
-        float x = MathUtils.clamp(child.getTranslationX()+dy/3 , 0 , child.getWidth()*2);//смещение при прокрутке
+        float x = MathUtils.clamp(child.getTranslationX()+dy/3 , 0 , child.getWidth()*2);
         child.setTranslationX(x);
 
     }
