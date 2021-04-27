@@ -36,7 +36,7 @@ public class FloatingActionButtonBehavior extends CoordinatorLayout.Behavior<Flo
                                   @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
 
-        float x = MathUtils.clamp(child.getTranslationX()+dy/3 , 0 , child.getWidth()*2);
+        float x = MathUtils.clamp(child.getTranslationX()+dy , 0 , child.getWidth()*2);
         child.setTranslationX(x);
 
     }

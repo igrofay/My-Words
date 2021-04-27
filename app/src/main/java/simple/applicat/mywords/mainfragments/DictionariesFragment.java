@@ -22,23 +22,32 @@ import java.util.ArrayList;
 import simple.applicat.mywords.R;
 import simple.applicat.mywords.adapters.DictionariesAdapter;
 import simple.applicat.mywords.data.Dictionary;
+import simple.applicat.mywords.helper.IntentHelper;
 
 public class DictionariesFragment extends Fragment {
     FloatingActionButton addNewDictionary;
-    static ArrayList<Dictionary> dictionaries = new ArrayList<>();
+    ArrayList<Dictionary> dictionaries;
     RecyclerView RC_Dictionaries;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        IntentHelper helper = IntentHelper.getINSTANCE();
+        dictionaries = helper.getDictionaries();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dictionaries, container, false);
         addNewDictionary = view.findViewById(R.id.button_for_add_new_dictionaty);
+        RC_Dictionaries = view.findViewById(R.id.recycle_view_dictionaries);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RC_Dictionaries = view.findViewById(R.id.recycle_view_dictionaries);
         RC_Dictionaries.setAdapter(new DictionariesAdapter(dictionaries , getContext()));
         RC_Dictionaries.setLayoutManager(new StaggeredGridLayoutManager(
                 getScreenOrientation()

@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import java.util.List;
+
+import simple.applicat.mywords.data.Dictionary;
+import simple.applicat.mywords.helper.IntentHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

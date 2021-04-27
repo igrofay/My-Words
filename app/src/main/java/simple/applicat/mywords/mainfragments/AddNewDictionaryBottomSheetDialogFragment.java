@@ -1,7 +1,10 @@
 package simple.applicat.mywords.mainfragments;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -24,6 +28,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 
 import simple.applicat.mywords.R;
+import simple.applicat.mywords.data.AppDatabase;
 import simple.applicat.mywords.data.Dictionary;
 
 import static android.app.Activity.RESULT_OK;
@@ -34,12 +39,13 @@ public class AddNewDictionaryBottomSheetDialogFragment extends BottomSheetDialog
     ImageView viewNewImageDictionary;
     TextInputEditText viewNewNameDictionary;
     Button viewAddNewDictionary;
-    ArrayList<Dictionary> dictionaries;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+        bottomSheetDialog.setDismissWithAnimation(true);
+        bottomSheetDialog.setCanceledOnTouchOutside(true);
         bottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         return bottomSheetDialog;
     }
@@ -76,9 +82,18 @@ public class AddNewDictionaryBottomSheetDialogFragment extends BottomSheetDialog
                 viewNewNameDictionary.getText().toString(),
                 URI_SELECTED_IMAGE!=null ? URI_SELECTED_IMAGE.toString() : ""
         );
-        ((DictionariesFragment) getParentFragment()).dictionaries.add(dictionary);
+        saveNewDictionaryInDB(dictionary , getContext());
     }
+    private void saveNewDictionaryInDB(Dictionary dictionary , Context context){
+        new Thread(()->{
+            long id = AppDatabase.
+                    getDatabase(context).
+                    getDaoDictionary().
+                    insertDictionary_db(dictionary);
+            dictionary.setIdDictionary(id);
+        }).start();
 
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -90,5 +105,4 @@ public class AddNewDictionaryBottomSheetDialogFragment extends BottomSheetDialog
                     into(viewNewImageDictionary);
         }
     }
-
 }

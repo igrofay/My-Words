@@ -12,14 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import simple.applicat.mywords.R;
 import simple.applicat.mywords.data.Dictionary;
 
 public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapter.ViewCell>{
-    private ArrayList<Dictionary> dictionaries ;
-    private Context context ;
+    private final ArrayList<Dictionary> dictionaries ;
+    private final Context context ;
     public DictionariesAdapter(ArrayList<Dictionary> dictionaries , Context context) {
         this.dictionaries = dictionaries;
         this.context = context ;
@@ -36,7 +38,7 @@ public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewCell holder, int position) {
         Dictionary dictionary = dictionaries.get(position);
-        holder.nameDictionary.setText(dictionary.getNameDictionary());
+        holder.setValues(dictionary);
         holder.startAnimation();
     }
 
@@ -56,6 +58,13 @@ public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapte
         }
         public void startAnimation(){
             itemView.startAnimation(animationItem);
+        }
+        public void setValues(Dictionary dictionary){
+            nameDictionary.setText(dictionary.getNameDictionary());
+            Glide.with(context).
+                    load(dictionary.getString_URI_photo()).
+                    error(R.drawable.ic_error_image).
+                    into(imageDictionary);
         }
     }
 }

@@ -3,11 +3,10 @@ package simple.applicat.mywords.data;
 import androidx.room.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity(tableName = "t_Dictionaries")
 public class Dictionary {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long idDictionary;
     private String nameDictionary;
     private String string_URI_photo;
@@ -29,4 +28,6 @@ public class Dictionary {
     }
     public long getIdDictionary() { return idDictionary; }
     public void setIdDictionary(long idDictionary) { this.idDictionary = idDictionary; }
+    public ArrayList<Word> getListWords() {return listWords; }
+    public void setListWords(ArrayList<Word> listWords) {this.listWords = listWords; }
 }
