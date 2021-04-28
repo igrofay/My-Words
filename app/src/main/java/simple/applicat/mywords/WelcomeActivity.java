@@ -16,12 +16,12 @@ import java.util.ArrayList;
 
 import simple.applicat.mywords.data.AppDatabase;
 import simple.applicat.mywords.data.Dictionary;
-import simple.applicat.mywords.helper.IntentHelper;
+
 
 public class WelcomeActivity extends AppCompatActivity{
     ArrayList<Dictionary> dictionaries;
     boolean finishActivity = false ;
-
+    static String DICTIONARIES = "Dictionaries" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,6 @@ public class WelcomeActivity extends AppCompatActivity{
         loginIcon.startAnimation(animationIcon);
     }
 
-
     void getAllDictionary(Context context){
         new Thread(()->{
             AppDatabase db = AppDatabase.getDatabase(context);
@@ -62,12 +61,12 @@ public class WelcomeActivity extends AppCompatActivity{
             }else {
                 finishActivity = true ;
             }
+
         }).start();
     }
     void finishActivity(){
         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-        IntentHelper helper = IntentHelper.getINSTANCE();
-        helper.putDictionaris(dictionaries);
+        intent.putParcelableArrayListExtra( DICTIONARIES , dictionaries);
         startActivity(intent);
         finish();
     }

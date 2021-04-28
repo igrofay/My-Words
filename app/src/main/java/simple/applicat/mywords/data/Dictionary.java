@@ -1,11 +1,14 @@
 package simple.applicat.mywords.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.*;
 
 import java.util.ArrayList;
 
 @Entity(tableName = "t_Dictionaries")
-public class Dictionary {
+public class Dictionary implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private long idDictionary;
     private String nameDictionary;
@@ -30,4 +33,32 @@ public class Dictionary {
     public void setIdDictionary(long idDictionary) { this.idDictionary = idDictionary; }
     public ArrayList<Word> getListWords() {return listWords; }
     public void setListWords(ArrayList<Word> listWords) {this.listWords = listWords; }
+
+    protected Dictionary(Parcel in) {
+        idDictionary = in.readLong();
+        nameDictionary = in.readString();
+        string_URI_photo = in.readString();
+    }
+    public static final Creator<Dictionary> CREATOR = new Creator<Dictionary>() {
+        @Override
+        public Dictionary createFromParcel(Parcel in) {
+            return new Dictionary(in);
+        }
+
+        @Override
+        public Dictionary[] newArray(int size) {
+            return new Dictionary[size];
+        }
+    };
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(idDictionary);
+        dest.writeString(nameDictionary);
+        dest.writeString(string_URI_photo);
+    }
 }

@@ -19,10 +19,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import simple.applicat.mywords.MainActivity;
 import simple.applicat.mywords.R;
 import simple.applicat.mywords.adapters.DictionariesAdapter;
 import simple.applicat.mywords.data.Dictionary;
-import simple.applicat.mywords.helper.IntentHelper;
+
 
 public class DictionariesFragment extends Fragment {
     FloatingActionButton addNewDictionary;
@@ -32,8 +33,7 @@ public class DictionariesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IntentHelper helper = IntentHelper.getINSTANCE();
-        dictionaries = helper.getDictionaries();
+         dictionaries = ((MainActivity) getActivity()).dictionaries;
     }
 
     @Override

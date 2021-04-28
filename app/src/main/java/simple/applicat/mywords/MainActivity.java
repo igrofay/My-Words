@@ -4,16 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 import simple.applicat.mywords.data.Dictionary;
-import simple.applicat.mywords.helper.IntentHelper;
+
 
 public class MainActivity extends AppCompatActivity {
-
+    public ArrayList<Dictionary> dictionaries;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dictionaries = getIntent().getParcelableArrayListExtra(WelcomeActivity.DICTIONARIES);
         setContentView(R.layout.activity_main);
     }
 }
