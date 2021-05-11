@@ -16,7 +16,7 @@ public class Dictionary implements Parcelable {
     @Ignore
     private ArrayList<Word> listWords ;
 
-
+    public Dictionary(){}
 
     public Dictionary(String nameDictionary , String string_URI_photo) {
         this.nameDictionary = nameDictionary; this.string_URI_photo = string_URI_photo ;
@@ -60,5 +60,6 @@ public class Dictionary implements Parcelable {
         dest.writeLong(idDictionary);
         dest.writeString(nameDictionary);
         dest.writeString(string_URI_photo);
+
     }
 }

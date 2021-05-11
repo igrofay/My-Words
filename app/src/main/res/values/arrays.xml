@@ -1,0 +1,33 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries_count_words">
+        <item>5 words</item>
+        <item>6 words</item>
+        <item>7 words</item>
+        <item>8 words</item>
+        <item>9 words</item>
+        <item>10 words</item>
+    </string-array>
+
+    <string-array name="reply_values_count_words">
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="reply_entries_number_of_repetitions">
+        <item>Повторять 1 раз</item>
+        <item>Повторять 2 раза</item>
+        <item>Повторять 3 раз</item>
+        <item>Повторять 4 раза</item>
+    </string-array>
+
+    <string-array name="reply_values_number_of_repetitions">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+</resources>

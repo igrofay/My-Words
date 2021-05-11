@@ -1,0 +1,48 @@
+package simple.applicat.mywords.behavior;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.math.MathUtils;
+import androidx.core.view.ViewCompat;
+
+public class ActionBarWFBehavior extends CoordinatorLayout.Behavior<LinearLayout> {
+    public ActionBarWFBehavior(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull LinearLayout child, @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
+        return axes == ViewCompat.SCROLL_AXIS_VERTICAL;
+    }
+
+    @Override
+    public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull LinearLayout child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
+        super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
+        float y = MathUtils.clamp(child.getTranslationY()+dy , 0 , child.getHeight());
+        child.setTranslationY(y);
+    }
+
+    @Nullable
+    @Override
+    public Parcelable onSaveInstanceState(@NonNull CoordinatorLayout parent, @NonNull LinearLayout child) {
+        Bundle args =new Bundle();
+        args.putFloat("TranslationY", child.getTranslationY());
+        return args;
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NonNull CoordinatorLayout parent, @NonNull LinearLayout child, @NonNull Parcelable state) {
+        super.onRestoreInstanceState(parent, child, state);
+        Bundle bundle = (Bundle) state;
+        float translationY = bundle.getFloat("TranslationY");
+        child.setTranslationY(translationY);
+    }
+}

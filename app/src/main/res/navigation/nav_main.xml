@@ -13,10 +13,36 @@
         <action
             android:id="@+id/action_dictionariesFragment_to_wordsFragment"
             app:destination="@id/wordsFragment" />
+        <action
+            android:id="@+id/action_dictionariesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:exitAnim="@anim/anim_exit_view"
+            app:enterAnim="@anim/anim_enter_view"
+            app:popEnterAnim="@anim/anim_enter_pop_view"
+            app:popExitAnim="@anim/anim_exit_pop_view"
+            />
     </fragment>
     <fragment
         android:id="@+id/wordsFragment"
         android:name="simple.applicat.mywords.mainfragments.WordsFragment"
         android:label="fragment_words"
-        tools:layout="@layout/fragment_words" />
+        tools:layout="@layout/fragment_words" >
+        <action
+            android:id="@+id/action_wordsFragment_to_createWordFragment"
+            app:destination="@id/createWordFragment"
+            app:exitAnim="@anim/anim_exit_view"
+            app:enterAnim="@anim/anim_enter_view"
+            app:popEnterAnim="@anim/anim_enter_pop_view"
+            app:popExitAnim="@anim/anim_exit_pop_view"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/createWordFragment"
+        android:name="simple.applicat.mywords.mainfragments.CreateOrEditWordFragment"
+        android:label="fragment_create_word"
+        tools:layout="@layout/fragment_create_or_edit_word" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="simple.applicat.mywords.mainfragments.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

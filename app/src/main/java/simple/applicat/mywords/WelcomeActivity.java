@@ -1,9 +1,11 @@
 package simple.applicat.mywords;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -11,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,7 +37,7 @@ public class WelcomeActivity extends AppCompatActivity{
                 finishActivity = true;
             }
         }, 3000);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setAnimations();
     }
     void setAnimations(){
@@ -61,7 +64,6 @@ public class WelcomeActivity extends AppCompatActivity{
             }else {
                 finishActivity = true ;
             }
-
         }).start();
     }
     void finishActivity(){

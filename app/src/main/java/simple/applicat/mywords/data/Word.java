@@ -1,10 +1,13 @@
 package simple.applicat.mywords.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "t_Words")
-public class Word {
+public class Word implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private long idWord;
     private String nativeWord ;
@@ -13,6 +16,39 @@ public class Word {
     private String string_URI_photo;
     private int levelOfKnowledge;
     private long idParent;
+
+    public Word(){}
+
+    public Word( String foreignWord ,String nativeWord, String transcription, String string_URI_photo, long idParent) {
+        this.foreignWord = foreignWord;
+        this.nativeWord = nativeWord;
+        this.transcription = transcription;
+        this.string_URI_photo = string_URI_photo;
+        this.idParent = idParent;
+        this.levelOfKnowledge = 0;
+    }
+
+    protected Word(Parcel in) {
+        idWord = in.readLong();
+        nativeWord = in.readString();
+        foreignWord = in.readString();
+        transcription = in.readString();
+        string_URI_photo = in.readString();
+        levelOfKnowledge = in.readInt();
+        idParent = in.readLong();
+    }
+
+    public static final Creator<Word> CREATOR = new Creator<Word>() {
+        @Override
+        public Word createFromParcel(Parcel in) {
+            return new Word(in);
+        }
+
+        @Override
+        public Word[] newArray(int size) {
+            return new Word[size];
+        }
+    };
 
     public long getIdWord() {
         return idWord;
@@ -55,5 +91,21 @@ public class Word {
     }
     public void setLevelOfKnowledge(int levelOfKnowledge) {
         this.levelOfKnowledge = levelOfKnowledge;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(idWord);
+        dest.writeString(nativeWord);
+        dest.writeString(foreignWord);
+        dest.writeString(transcription);
+        dest.writeString(string_URI_photo);
+        dest.writeInt(levelOfKnowledge);
+        dest.writeLong(idParent);
     }
 }

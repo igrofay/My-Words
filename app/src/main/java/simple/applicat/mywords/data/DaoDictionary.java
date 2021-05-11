@@ -9,7 +9,8 @@ import java.util.List;
 public interface DaoDictionary {
     @Insert
     long insertDictionary_db(Dictionary dictionary);
-
+    @Update
+    void updateDictionary_db(Dictionary dictionary);
     @Delete
     void deleteDictionary_db(Dictionary dictionary);
 

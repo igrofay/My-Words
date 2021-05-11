@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_dictionaries"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -17,25 +17,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@color/purple_700"
-
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-            app:toolbarId="@+id/toolbar">
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar_dictionaries">
 
             <ImageView
-                android:foreground="@drawable/foreground_toolbar"
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:foreground="@drawable/foreground_toolbar"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 app:srcCompat="@drawable/ic_dictionaries_toolbar" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbar_dictionaries"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/dictionaries"
-                />
+                app:menu="@menu/menu_dictionaries_fragment"
+                app:layout_collapseMode="pin"
+                app:title="@string/dictionaries" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -48,7 +49,7 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_for_add_new_dictionaty"
+        android:id="@+id/add_new_dictionaty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

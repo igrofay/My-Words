@@ -1,0 +1,24 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/settings_for_learning_words">
+        <ListPreference
+            app:defaultValue="5"
+            app:entries="@array/reply_entries_count_words"
+            app:entryValues="@array/reply_values_count_words"
+            app:key="countWords"
+            app:title="@string/count_words_for_learning"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            app:title="@string/number_of_repetitions_of_word"
+            app:key="numberOfRepetitions"
+            app:defaultValue="2"
+            app:entries="@array/reply_entries_number_of_repetitions"
+            app:entryValues="@array/reply_values_number_of_repetitions"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:orientation="vertical"
+    app:cardCornerRadius="25dp">
 
-    <TextView
-        android:id="@+id/name_dictionary"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        android:background="@drawable/background_view_cell_name_dictionary"
+        <TextView
+            android:id="@+id/name_dictionary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="36dp"
-        android:textStyle="bold" />
+            android:background="@color/purple_700"
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="24dp">
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="36dp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/image_dictionary"
@@ -32,12 +35,6 @@
             android:background="@drawable/background_view_cell_image_dictionary"
             android:padding="12dp"
             app:srcCompat="@drawable/ic_photo_standard" />
+    </LinearLayout>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:rotation="90"
-            app:srcCompat="@drawable/ic_triangle" />
-    </FrameLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>
