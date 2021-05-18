@@ -17,7 +17,10 @@
             app:entryValues="@array/reply_values_number_of_repetitions"
             app:useSimpleSummaryProvider="true"
             />
-
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="playMusic"
+            android:title="@string/play_background_music" />
     </PreferenceCategory>
 
 

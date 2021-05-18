@@ -39,4 +39,5 @@
     <string name="fine">Нормально</string>
     <string name="excellent">Отлично</string>
     <string name="knowledge_level_word">Уровень знания</string>
+    <string name="play_background_music">Проигрывать музыку во время изучения</string>
 </resources>

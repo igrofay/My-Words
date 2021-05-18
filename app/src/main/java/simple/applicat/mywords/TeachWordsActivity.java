@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -21,6 +22,7 @@ public class TeachWordsActivity extends AppCompatActivity {
     public ArrayList<Word> wordArrayList;
     public ProgressBar progress;
     public DistributorManager distributorManager;
+    private MediaPlayer musicPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +33,22 @@ public class TeachWordsActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int repetitions = Integer.parseInt(sharedPreferences.getString("numberOfRepetitions", "2"));
         distributorManager = new DistributorManager( wordArrayList , repetitions  , progress);
-        distributorManager.startDistributionData();
+        if(sharedPreferences.getBoolean("playMusic" , true)){
+            musicPlayer = MediaPlayer.create(this, R.raw.background_music);
+            musicPlayer.setOnCompletionListener(MediaPlayer::start);
+            musicPlayer.start();
+
+        }
     }
 
     @Override
     public void onBackPressed() {
         DialogManager.startExitDialog(this);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if(musicPlayer!=null) musicPlayer.stop();
     }
 }

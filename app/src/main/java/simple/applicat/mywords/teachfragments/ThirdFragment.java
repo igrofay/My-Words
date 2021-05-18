@@ -12,8 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 import simple.applicat.mywords.R;
 import simple.applicat.mywords.TeachWordsActivity;
@@ -49,13 +52,21 @@ public class ThirdFragment extends Fragment {
         );
         Button  reply = view.findViewById(R.id.reply_ft);
         reply.setOnClickListener(v -> {
-            boolean result = answerInput.getText().toString().toLowerCase().equals(
-                    (typeOfQuestion ? question.getNativeWord() : question.getForeignWord()).toLowerCase()
-            );
-            distributorManager.saveResult(result);
-            DialogManager.startResultBottomSheetDialog(this , distributorManager.getFragment() , result ,
-                    typeOfQuestion ? question.getNativeWord() : question.getForeignWord()
-            );
+            String text = answerInput.getText().toString();// Получаем ответ
+            String[] strList = text.split(" "); //Парсим его в массив, убирая все пробелы
+            if(strList.length != 0 && !text.equals("")) { // Проверяем на пустой ввод
+                ArrayList<String> correctTextArrayList = new ArrayList<>();
+                for (String str : strList) {
+                    if (!str.equals("")) correctTextArrayList.add(str);
+                }
+                boolean result = String.join(" ", correctTextArrayList).toLowerCase().equals(
+                        (typeOfQuestion ? question.getNativeWord() : question.getForeignWord()).toLowerCase()
+                );
+                distributorManager.saveResult(result);
+                DialogManager.startResultBottomSheetDialog(this , distributorManager.getFragment() , result ,
+                        typeOfQuestion ? question.getNativeWord() : question.getForeignWord()
+                );
+            }else Toast.makeText(requireContext() , R.string.text_cannot_be_empty , Toast.LENGTH_SHORT).show();
         });
     }
 }

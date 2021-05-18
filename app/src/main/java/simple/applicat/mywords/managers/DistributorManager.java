@@ -28,8 +28,10 @@ public class DistributorManager {
         this.repetitions = repetitions;
         random = new Random();
         this.progressBar = progressBar ;
+        startDistributionData();
     }
-    public void  startDistributionData(){
+
+    private void  startDistributionData(){
         sizeTest = repetitions*wordArrayList.size() ;
         fragments = new int[sizeTest];
         questions = new Word[sizeTest];

@@ -5,8 +5,10 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -56,7 +58,9 @@ public class DialogManager {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.you_want_exit);
         builder.setMessage(R.string.explanation_of_exit);
-        builder.setPositiveButton(R.string.go_out, (dialog, which) -> activity.finish());
+        builder.setPositiveButton(R.string.go_out, (dialog, which) -> {
+            activity.finish();
+        });
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
         builder.setCancelable(false);
         builder.show();
@@ -244,7 +248,6 @@ public class DialogManager {
 
     public static void startResultBottomSheetDialog(Fragment fragment , int nexFragment , boolean result , String correctAnswer){
         AlertDialog.Builder builder = new AlertDialog.Builder(fragment.requireContext());
-        builder.setCancelable(false);
         AlertDialog alertDialog = builder.create();
         View view = LayoutInflater.from(fragment.requireContext()).
                 inflate(R.layout.dialog_result , null , false);
@@ -258,9 +261,9 @@ public class DialogManager {
                 )
         );
         view.setOnClickListener(v -> {
-            NavHostFragment.findNavController(fragment).navigate(nexFragment);
             alertDialog.dismiss();
         });
+        alertDialog.setOnDismissListener(dialog -> NavHostFragment.findNavController(fragment).navigate(nexFragment));
         alertDialog.setView(view);
         alertDialog.show();
     }
