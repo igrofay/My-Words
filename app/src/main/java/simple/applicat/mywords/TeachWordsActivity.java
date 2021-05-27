@@ -36,8 +36,6 @@ public class TeachWordsActivity extends AppCompatActivity {
         if(sharedPreferences.getBoolean("playMusic" , true)){
             musicPlayer = MediaPlayer.create(this, R.raw.background_music);
             musicPlayer.setOnCompletionListener(MediaPlayer::start);
-            musicPlayer.start();
-
         }
     }
 
@@ -50,5 +48,17 @@ public class TeachWordsActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
         if(musicPlayer!=null) musicPlayer.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(musicPlayer!=null) musicPlayer.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(musicPlayer!=null) musicPlayer.pause();
     }
 }

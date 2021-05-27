@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -92,42 +94,46 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewCellNorm
 
     }
     class ViewCellExpansion extends ViewCellNorm implements View.OnClickListener {
+        final Animation animationItem ;
         public ViewCellExpansion(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            animationItem = AnimationUtils.loadAnimation( fragment.requireContext() , R.anim.anim_word_cell);
         }
 
+
+        @Override
+        void setValues(int position) {
+            super.setValues(position);
+            itemView.startAnimation(animationItem);
+        }
 
         @Override
         public void onClick(View v) {
             PopupMenu popupMenu = new PopupMenu(fragment.requireContext() , v);
             popupMenu.getMenuInflater().inflate(R.menu.menu_word, popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @SuppressLint("NonConstantResourceId")
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()){
-                        case R.id.knowledge_level:
-                            int strResource = word.getLevelOfKnowledge() <25 ? R.string.badly :
-                                    word.getLevelOfKnowledge() <75 ? R.string.fine : R.string.excellent ;
-                            Toast.makeText(fragment.requireContext() , strResource , Toast.LENGTH_SHORT).show();
-                            return true ;
-                        case R.id.edit_word:
-                            Bundle args = new Bundle();
-                            args.putBoolean(EDIT_WORD , true);
-                            args.putParcelable(ITSELF_WORD, word);
-                            NavHostFragment.findNavController(fragment).navigate(R.id.action_wordsFragment_to_createWordFragment , args);
-                            return true;
-                        case R.id.delete_word:
-                            notifyItemRemoved(wordArrayList.indexOf(word));
-                            wordArrayList.remove(word);
-                            new Thread(()->{
-                                AppDatabase.getDatabase(fragment.requireContext()).getDaoWord().deleteWord_db(word);
-                            }).start();
-                            return true;
-                        default:
-                            return false;
-                    }
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()){
+                    case R.id.knowledge_level:
+                        int strResource = word.getLevelOfKnowledge() <25 ? R.string.badly :
+                                word.getLevelOfKnowledge() <75 ? R.string.fine : R.string.excellent ;
+                        Toast.makeText(fragment.requireContext() , strResource , Toast.LENGTH_SHORT).show();
+                        return true ;
+                    case R.id.edit_word:
+                        Bundle args = new Bundle();
+                        args.putBoolean(EDIT_WORD , true);
+                        args.putParcelable(ITSELF_WORD, word);
+                        NavHostFragment.findNavController(fragment).navigate(R.id.action_wordsFragment_to_createWordFragment , args);
+                        return true;
+                    case R.id.delete_word:
+                        notifyItemRemoved(wordArrayList.indexOf(word));
+                        wordArrayList.remove(word);
+                        new Thread(()->{
+                            AppDatabase.getDatabase(fragment.requireContext()).getDaoWord().deleteWord_db(word);
+                        }).start();
+                        return true;
+                    default:
+                        return false;
                 }
             });
             popupMenu.show();
